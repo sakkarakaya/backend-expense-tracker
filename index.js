@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 
 const helmet = require("helmet")
+const morgan = require("morgan")
 
 const app = express()
 dotenv.config()
@@ -10,7 +11,9 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
     console.log("Connected to MongoDB")
 })
 
+app.use(express.json())
 app.use(helmet())
+app.use(morgan("common"))
 
 
 const port = 5000
