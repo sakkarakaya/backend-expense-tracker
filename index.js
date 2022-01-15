@@ -5,8 +5,8 @@ const mongoose = require("mongoose")
 const helmet = require("helmet")
 const morgan = require("morgan")
 
-const userRoute = require("./routers/users")
-const authRoute = require("./routers/auth")
+const userRoute = require("./routers/users.js")
+const authRoute = require("./routers/auth.js")
 
 const app = express()
 dotenv.config()
