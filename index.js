@@ -7,6 +7,7 @@ const morgan = require("morgan")
 
 const userRoute = require("./routers/users.js")
 const authRoute = require("./routers/auth.js")
+const categoryRoute = require("./routers/category.js")
 
 const app = express()
 dotenv.config()
@@ -20,6 +21,7 @@ app.use(morgan("common"))
 
 app.use("/api/users", userRoute)
 app.use("/api/auth", authRoute)
+app.use("/api/categories", categoryRoute)
 
 app.get('/', (req, res) => {
     console.log("hi")

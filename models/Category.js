@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const CategorySchema = new mongoose.Schema(
     {
-        id: {
+        userId: {
             type: String,
             required: true,
             unique: true
@@ -24,4 +24,4 @@ const CategorySchema = new mongoose.Schema(
 }
 )
 
-modules.export = mongoose.model("Category", CategorySchema)
+module.exports = mongoose.model("Category", CategorySchema)
