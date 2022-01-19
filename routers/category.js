@@ -25,5 +25,18 @@ router.put("/:id", async (req, res) => {
     }
 })
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const category = await Category.findById(req.params.id)
+        if (category.userId === req.body.userId) {
+            await category.deleteOne()
+            res.status(200).json("deleted")
+        } else {
+            res.status(403).json("you cannot")
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
 
 module.exports = router
