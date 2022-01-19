@@ -1,6 +1,23 @@
 const router = require("express").Router()
-const Category = require("../models/Category.js")
+const Category = require("../models/Category.js");
+const User = require("../models/User.js");
 
+Category.collection.dropIndexes(function (err, results) {
+    // Handle errors
+});
+
+//READ
+router.get("/", async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.body.userId)
+        const userCategories = await Category.find({ userId: currentUser._id })
+        res.json(userCategories)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+//CREATE
 router.post("/", async (req, res) => {
     const newCategory = new Category(req.body)
     try {
@@ -11,6 +28,7 @@ router.post("/", async (req, res) => {
     }
 })
 
+//UPDATE
 router.put("/:id", async (req, res) => {
     try {
         const category = await Category.findById(req.params.id)
@@ -25,6 +43,7 @@ router.put("/:id", async (req, res) => {
     }
 })
 
+//DELETE
 router.delete("/:id", async (req, res) => {
     try {
         const category = await Category.findById(req.params.id)
