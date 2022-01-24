@@ -7,7 +7,7 @@ const User = require("../models/User.js");
 router.get("/", async (req, res) => {
     try {
         const currentUser = await User.findById(req.body.userId)
-        const userRecords = await Record.find({ userId: currentUser._id })
+        const userRecords = await Record.find({ userId: currentUser._id }).populate({ path: "category", select: "name type color" })
         res.json(userRecords)
     } catch (error) {
         res.status(500).json(error)
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     const newRecord = new Record(req.body)
     try {
-        const savedRecord = await newRecord.save()
+        const savedRecord = await newRecord.save().populate({ path: "category", select: "name type color" })
         res.status(200).json(savedRecord)
     } catch (error) {
         res.status(500).json(error)
