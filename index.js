@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 
 const helmet = require("helmet")
 const morgan = require("morgan")
+var cors = require("cors")
 
 const userRoute = require("./routers/users.js")
 const authRoute = require("./routers/auth.js")
@@ -11,6 +12,7 @@ const categoryRoute = require("./routers/category.js")
 const recordRoute = require("./routers/record.js")
 
 const app = express()
+app.use(cors())
 dotenv.config()
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("Connected to MongoDB")
@@ -19,6 +21,15 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 app.use(express.json())
 app.use(helmet())
 app.use(morgan("common"))
+
+
+
+
+
+// app.use("/api/users", ()=>{
+//     if (!user.isAdmin) return
+// next();
+// }, userRoute)
 
 app.use("/api/users", userRoute)
 app.use("/api/auth", authRoute)
